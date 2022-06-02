@@ -135,7 +135,30 @@ void main(void)
                     strcpy(str, "8080903C7F");
                     strcat(str, "8090")
                 }else {
-                    strcat(str, "40") // 40 represents E notes above 3C( modify it according to the index)
+                    char appendStr[2];
+                    switch(i) {
+                        case 1:
+                            appendStr = "3E";
+                            break;
+                        case 2:
+                            appendStr = "40";
+                            break;
+                        case 3:
+                            appendStr = "42";
+                            break;
+                        case 4:
+                            appendStr = "44";
+                            break;
+                        case 5:
+                            appendStr = "46";
+                            break;
+                        case 6:
+                            appendStr = "48";
+                            break;
+                        default:
+                            printk("Fransfer Error!")
+                    }
+                    strcat(str, appendStr) // 40 represents E notes above 3C( modify it according to the index)
                     strcat(str, "7F"); // 7F represents the MIDI_VELOCITY_MAX
                 }
             }
