@@ -56,12 +56,10 @@ static void on_sent(struct bt_conn *conn, void *user_data)
 /* UART Service Declaration */
 BT_GATT_SERVICE_DEFINE(nus_svc,
 BT_GATT_PRIMARY_SERVICE(MIDI_BT_UUID_NUS_SERVICE),
-	// BT_GATT_CHARACTERISTIC(MIDI_BT_UUID_NUS_TX,
-	// 			   BT_GATT_CHRC_READ |
-	// 		       BT_GATT_CHRC_WRITE_WITHOUT_RESP |
-	// 			   BT_GATT_CHRC_NOTIFY,
-	// 		       BT_GATT_PERM_READ,
-	// 		       NULL, NULL, NULL),
+	BT_GATT_CHARACTERISTIC(MIDI_BT_UUID_NUS_TX,
+				   BT_GATT_CHRC_NOTIFY,
+			       BT_GATT_PERM_READ,
+			       NULL, NULL, NULL),
 	BT_GATT_CCC(nus_ccc_cfg_changed, BT_GATT_PERM_READ | BT_GATT_PERM_WRITE),
 	BT_GATT_CHARACTERISTIC(MIDI_BT_UUID_NUS_RX,
 			       BT_GATT_CHRC_WRITE |

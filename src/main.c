@@ -613,60 +613,34 @@ void main(void)
 	for (;;) {
 		dk_set_led(RUN_STATUS_LED, (++blink_status) % 2);
 		k_sleep(K_MSEC(RUN_LED_BLINK_INTERVAL));
-		if (bt_nus_send(NULL, midi_buf->data, midi_buf->len)) {
-			// LOG_WRN("Failed to send data over BLE connection in main");
-			LOG_WRN("456");
-		}	
 
-		// if (uart_tx(uart, midi_buf->data, midi_buf->len, SYS_FOREVER_MS)) {
-		// 	LOG_WRN("Failed to send data over UART");
-		// }
 	}
 }
+
 
 void ble_write_thread(void)
 {
 	/* Don't go any further until BLE is initialized */
 	k_sem_take(&ble_init_ok, K_FOREVER);
-
+	
+	/*
+	uint8_t buffer = 67;
+	const uint8_t *p = &buffer;
+	uint16_t len = sizeof(buffer)/sizeof(uint8_t);
+	*/
+	
 	for (;;) {
 		/* Wait indefinitely for data to be sent over bluetooth */
-		// struct uart_data_t *buf = k_fifo_get(&fifo_uart_rx_data,
-		// 				     K_FOREVER);
-	struct midi_data_t *midi_buf;
-	midi_buf = k_malloc(sizeof(*midi_buf));
-	midi_buf->data[0] = 61;
-	midi_buf->len = sizeof(midi_buf->data)/sizeof(uint8_t);
+		struct uart_data_t *buf = k_fifo_get(&fifo_uart_rx_data,
+						     K_FOREVER);
 
-		if (bt_nus_send(NULL, midi_buf->data, midi_buf->len)) {
-			// LOG_WRN("Failed to send data over BLE connection in thread");
-			LOG_WRN("123");
+		if (bt_nus_send(NULL, buf->data, buf->len)) {
+			LOG_WRN("Failed to send data over BLE connection");
 		}
 
-		// k_free(buf);
+		k_free(buf);
 	}
 }
-
-// void ble_write_thread(void)
-// {
-// 	/* Don't go any further until BLE is initialized */
-// 	k_sem_take(&ble_init_ok, K_FOREVER);
-// 	// const char* hexstring = "8080903C7F";
-// 	// uint8_t buffer = (int)strtol(hexstring, NULL, 16);
-// 	const uint8_t* buffer = 51;
-// 	uint16_t len = sizeof(buffer)/sizeof(uint8_t);
-
-// 	for (;;) {
-// 		/* Wait indefinitely for data to be sent over bluetooth */
-// 		// struct uart_data_t *buf = k_fifo_get(&fifo_uart_rx_data,
-// 		// 				     K_FOREVER);
-// 		if (bt_nus_send(NULL, buffer, len)) {
-// 			LOG_WRN("Failed to send data over BLE connection");
-// 		}
-
-// 		// k_free(buf);
-// 	}
-// }
 
 K_THREAD_DEFINE(ble_write_thread_id, STACKSIZE, ble_write_thread, NULL, NULL,
 		NULL, PRIORITY, 0, 0);
