@@ -1,2 +1,1 @@
-osource "f:/peripheral_uart/boards/shields/*/Kconfig.defconfig"
 osource "C:/Users/36279/ncs/v1.9.1/nrf/boards/shields/*/Kconfig.defconfig"

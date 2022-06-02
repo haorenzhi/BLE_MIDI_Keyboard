@@ -7173,7 +7173,7 @@ build zephyr/cmake/usage/CMakeFiles/usage: CUSTOM_COMMAND
 # Custom command for zephyr\cmake\usage\CMakeFiles\boards
 
 build zephyr/cmake/usage/CMakeFiles/boards: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D C:\Users\36279\Desktop\peripheral_uart\build\zephyr\cmake\usage && C:\Users\36279\ncs\v1.9.1\toolchain\opt\bin\python.exe C:/Users/36279/ncs/v1.9.1/zephyr/scripts/list_boards.py --arch-root=C:/Users/36279/ncs/v1.9.1/zephyr --board-root=f:/peripheral_uart --board-root=C:/Users/36279/ncs/v1.9.1/nrf --board-root=C:/Users/36279/ncs/v1.9.1/zephyr"
+  COMMAND = cmd.exe /C "cd /D C:\Users\36279\Desktop\peripheral_uart\build\zephyr\cmake\usage && C:\Users\36279\ncs\v1.9.1\toolchain\opt\bin\python.exe C:/Users/36279/ncs/v1.9.1/zephyr/scripts/list_boards.py --arch-root=C:/Users/36279/ncs/v1.9.1/zephyr --board-root=C:/Users/36279/ncs/v1.9.1/nrf --board-root=C:/Users/36279/ncs/v1.9.1/zephyr"
   pool = console
 
 # =============================================================================

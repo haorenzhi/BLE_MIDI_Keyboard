@@ -298,7 +298,7 @@ static int uart_init(void)
 
 	if (tx) {
 		pos = snprintf(tx->data, sizeof(tx->data),
-			       "Starting Nordic UART service example\r\n");
+			       "Starting BLE MIDI service example\r\n");
 
 		if ((pos < 0) || (pos >= sizeof(tx->data))) {
 			k_free(tx);
@@ -614,7 +614,8 @@ void main(void)
 		dk_set_led(RUN_STATUS_LED, (++blink_status) % 2);
 		k_sleep(K_MSEC(RUN_LED_BLINK_INTERVAL));
 		if (bt_nus_send(NULL, midi_buf->data, midi_buf->len)) {
-			LOG_WRN("Failed to send data over BLE connection in main");
+			// LOG_WRN("Failed to send data over BLE connection in main");
+			LOG_WRN("456");
 		}	
 
 		// if (uart_tx(uart, midi_buf->data, midi_buf->len, SYS_FOREVER_MS)) {
@@ -638,7 +639,8 @@ void ble_write_thread(void)
 	midi_buf->len = sizeof(midi_buf->data)/sizeof(uint8_t);
 
 		if (bt_nus_send(NULL, midi_buf->data, midi_buf->len)) {
-			LOG_WRN("Failed to send data over BLE connection in thread");
+			// LOG_WRN("Failed to send data over BLE connection in thread");
+			LOG_WRN("123");
 		}
 
 		// k_free(buf);
