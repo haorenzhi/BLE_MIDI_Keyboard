@@ -38,7 +38,7 @@ struct gpio_dt_spec {
 	gpio_dt_flags_t dt_flags;
 };
 */
-static const struct gpio_dt_spec buttons[7] = [
+static const struct gpio_dt_spec buttons[7] = {
     GPIO_DT_SPEC_GET_OR(SW0_NODE, gpios, {0}),
     GPIO_DT_SPEC_GET_OR(SW1_NODE, gpios, {1}),
     GPIO_DT_SPEC_GET_OR(SW2_NODE, gpios, {2}),
@@ -46,7 +46,7 @@ static const struct gpio_dt_spec buttons[7] = [
     GPIO_DT_SPEC_GET_OR(SW4_NODE, gpios, {4}),
     GPIO_DT_SPEC_GET_OR(SW5_NODE, gpios, {5}),
     GPIO_DT_SPEC_GET_OR(SW6_NODE, gpios, {6}),
-    ]
+};
 
 /*
 struct gpio_callback {
@@ -66,7 +66,7 @@ void button_pressed(const struct device *dev, struct gpio_callback *cb,
 
 void main(void)
 {
-	int[] ret = new int[7];
+	int ret[7];
         
     /* button available check */
     for(int i = 0; i < 7; i++) {
@@ -117,7 +117,7 @@ void main(void)
     while (1) {
         /* If we have an LED, match its state to the button's. */
 
-        int[] val = new int[7];
+        int val[7];
         for(int i = 0; i < 7; i++) {
             val[i] = gpio_pin_get_dt(&buttons[i]);
         }
@@ -133,9 +133,9 @@ void main(void)
             if(val[i] == 1) {
                 if(i == 0) {
                     strcpy(str, "8080903C7F");
-                    strcat(str, "8090")
+                    strcat(str, "8090");
                 }else {
-                    char appendStr[2];
+                    char* appendStr;
                     switch(i) {
                         case 1:
                             appendStr = "3E";
@@ -156,9 +156,9 @@ void main(void)
                             appendStr = "48";
                             break;
                         default:
-                            printk("Fransfer Error!")
+                            printk("Fransfer Error!");
                     }
-                    strcat(str, appendStr) // 40 represents E notes above 3C( modify it according to the index)
+                    strcat(str, appendStr); // 40 represents E notes above 3C( modify it according to the index)
                     strcat(str, "7F"); // 7F represents the MIDI_VELOCITY_MAX
                 }
             }
