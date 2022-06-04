@@ -22,18 +22,17 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-/** @brief UUID of the NUS Service. **/
+/** @brief UUID of the MIDI Service. **/
 #define MIDI_BT_UUID_NUS_VAL \
 	BT_UUID_128_ENCODE(0x03b80e5a, 0xede8, 0x4b33, 0xa751, 0x6ce34ec4c700)
 
-/** @brief UUID of the TX Characteristic. **/
+/** @brief UUID of the MIDI TX Characteristic. **/
 #define MIDI_BT_UUID_NUS_TX_VAL \
 	BT_UUID_128_ENCODE(0x7772e5db, 0x3868, 0x4112, 0xa1a9, 0xf2669d106bf3)
 
-/** @brief UUID of the RX Characteristic. **/
+/** @brief UUID of the NUS RX Characteristic. **/
 #define MIDI_BT_UUID_NUS_RX_VAL \
 	BT_UUID_128_ENCODE(0x6e400002, 0xb5a3, 0xf393, 0xe0a9, 0xe50e24dcca9e)
-	// BT_UUID_128_ENCODE(0x7772e5db, 0x3868, 0x4112, 0xa1a9, 0xf2669d106bf3)
 
 #define MIDI_BT_UUID_NUS_SERVICE   BT_UUID_DECLARE_128(MIDI_BT_UUID_NUS_VAL)
 #define MIDI_BT_UUID_NUS_TX        BT_UUID_DECLARE_128(MIDI_BT_UUID_NUS_TX_VAL)
@@ -188,7 +187,7 @@ int bt_nus_init(struct bt_nus_cb *callbacks);
  * @retval 0 If the data is sent.
  *           Otherwise, a negative value is returned.
  */
-int bt_nus_send(struct bt_conn *conn, const uint8_t *data, uint16_t len);
+int bt_nus_send(struct bt_conn *conn, const char *data, uint16_t len);
 
 /**@brief Get maximum data length that can be used for @ref bt_nus_send.
  *

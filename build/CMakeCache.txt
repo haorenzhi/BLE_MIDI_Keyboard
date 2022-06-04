@@ -39,7 +39,7 @@ CACHED_BOARD:STRING=nrf52840dk_nrf52840
 // listed, e.g. CONF_FILE="prj1.confi;prj2.conf" The CACHED_CONF_FILE
 // is internal Zephyr variable used between CMake runs. To change
 // CONF_FILE, use the CONF_FILE variable.
-CACHED_CONF_FILE:STRING=c:/Users/36279/Desktop/peripheral_uart/prj.conf
+CACHED_CONF_FILE:STRING=C:/Users/36279/Desktop/peripheral_uart/prj.conf
 
 //Selected shield
 CACHED_SHIELD:STRING=

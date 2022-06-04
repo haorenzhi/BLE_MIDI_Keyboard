@@ -494,9 +494,21 @@ static void bt_receive_cb(struct bt_conn *conn, const uint8_t *const data,
 		}
 	}
 }
+/*
+static struct bt_nus_cb nus_cb = {
+	.received = bt_receive_cb,
+};
+*/
+
+void bt_send_enabled(enum bt_nus_send_status status)
+{
+    LOG_INF("notification callback");
+    LOG_INF("notifications %s", (status==BT_NUS_SEND_STATUS_ENABLED)?"enabled":"disabled");
+}
 
 static struct bt_nus_cb nus_cb = {
 	.received = bt_receive_cb,
+    .send_enabled = bt_send_enabled,
 };
 
 void error(void)
@@ -565,11 +577,6 @@ struct midi_data_t {
 
 void main(void)
 {
-	struct midi_data_t *midi_buf;
-	midi_buf = k_malloc(sizeof(*midi_buf));
-	midi_buf->data[0] = 51;
-	midi_buf->len = sizeof(midi_buf->data)/sizeof(uint8_t);
-
 	int blink_status = 0;
 	int err = 0;
 
@@ -628,17 +635,23 @@ void ble_write_thread(void)
 	const uint8_t *p = &buffer;
 	uint16_t len = sizeof(buffer)/sizeof(uint8_t);
 	*/
+	unsigned char message[5] = {0x80,0x80,0x90,0x3C,0x7F};
 	
 	for (;;) {
-		/* Wait indefinitely for data to be sent over bluetooth */
+		/* Wait indefinitely for data to be sent over bluetooth 
 		struct uart_data_t *buf = k_fifo_get(&fifo_uart_rx_data,
 						     K_FOREVER);
-
 		if (bt_nus_send(NULL, buf->data, buf->len)) {
 			LOG_WRN("Failed to send data over BLE connection");
 		}
-
-		k_free(buf);
+*/
+		if (bt_nus_send(NULL, message, sizeof(message))) {
+			LOG_WRN("Failed to send data over BLE connection");
+		}
+		printk("midi message: %s\n", message);
+		// message--;
+		k_sleep(K_MSEC(3000));
+		// k_free(buf);
 	}
 }
 

@@ -57,15 +57,17 @@ static void on_sent(struct bt_conn *conn, void *user_data)
 BT_GATT_SERVICE_DEFINE(nus_svc,
 BT_GATT_PRIMARY_SERVICE(MIDI_BT_UUID_NUS_SERVICE),
 	BT_GATT_CHARACTERISTIC(MIDI_BT_UUID_NUS_TX,
+				   BT_GATT_CHRC_READ |
+				   BT_GATT_CHRC_WRITE_WITHOUT_RESP |
 				   BT_GATT_CHRC_NOTIFY,
-			       BT_GATT_PERM_READ,
+			       BT_GATT_PERM_READ | BT_GATT_PERM_WRITE,
 			       NULL, NULL, NULL),
 	BT_GATT_CCC(nus_ccc_cfg_changed, BT_GATT_PERM_READ | BT_GATT_PERM_WRITE),
-	BT_GATT_CHARACTERISTIC(MIDI_BT_UUID_NUS_RX,
-			       BT_GATT_CHRC_WRITE |
-			       BT_GATT_CHRC_WRITE_WITHOUT_RESP,
-			       BT_GATT_PERM_READ | BT_GATT_PERM_WRITE,
-			       NULL, on_receive, NULL),
+	// BT_GATT_CHARACTERISTIC(MIDI_BT_UUID_NUS_RX,
+	// 		       BT_GATT_CHRC_WRITE |
+	// 		       BT_GATT_CHRC_WRITE_WITHOUT_RESP,
+	// 		       BT_GATT_PERM_READ | BT_GATT_PERM_WRITE,
+	// 		       NULL, on_receive, NULL),
 );
 
 int bt_nus_init(struct bt_nus_cb *callbacks)
@@ -79,7 +81,7 @@ int bt_nus_init(struct bt_nus_cb *callbacks)
 	return 0;
 }
 
-int bt_nus_send(struct bt_conn *conn, const uint8_t *data, uint16_t len)
+int bt_nus_send(struct bt_conn *conn, const char *data, uint16_t len)
 {
 	struct bt_gatt_notify_params params = {0};
 	const struct bt_gatt_attr *attr = &nus_svc.attrs[2];
