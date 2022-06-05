@@ -636,6 +636,7 @@ void ble_write_thread(void)
 	uint16_t len = sizeof(buffer)/sizeof(uint8_t);
 	*/
 	unsigned char message[5] = {0x80,0x80,0x90,0x3C,0x7F};
+	unsigned char messages[11] = {0x80,0x80,0x90,0x3C,0x7F,0x80,0x90,0x40,0x7F,0x44,0x7F};
 	
 	for (;;) {
 		/* Wait indefinitely for data to be sent over bluetooth 
@@ -648,8 +649,13 @@ void ble_write_thread(void)
 		if (bt_nus_send(NULL, message, sizeof(message))) {
 			LOG_WRN("Failed to send data over BLE connection");
 		}
-		printk("midi message: %s\n", message);
-		// message--;
+		printk("midi message: C\n");
+		k_sleep(K_MSEC(1000));
+
+		if (bt_nus_send(NULL, messages, sizeof(messages))) {
+			LOG_WRN("Failed to send data over BLE connection");
+		}
+		printk("midi messages: C Chord\n");
 		k_sleep(K_MSEC(3000));
 		// k_free(buf);
 	}
