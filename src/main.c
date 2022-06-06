@@ -23,6 +23,7 @@
 #include <bluetooth/hci.h>
 
 #include "nus_midi.h"
+#include "button.h"
 
 #include <dk_buttons_and_leds.h>
 
@@ -30,7 +31,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <drivers/gpio.h>
 #include <logging/log.h>
 
 #define LOG_MODULE_NAME peripheral_uart
@@ -569,11 +570,6 @@ static void configure_gpio(void)
 	}
 }
 
-struct midi_data_t {
-	void *fifo_reserved;
-	uint8_t data[UART_BUF_SIZE];
-	uint16_t len;
-};
 
 void main(void)
 {
@@ -620,10 +616,10 @@ void main(void)
 	for (;;) {
 		dk_set_led(RUN_STATUS_LED, (++blink_status) % 2);
 		k_sleep(K_MSEC(RUN_LED_BLINK_INTERVAL));
+		// button_loop();
 
-	}
+    }
 }
-
 
 void ble_write_thread(void)
 {
@@ -646,6 +642,7 @@ void ble_write_thread(void)
 			LOG_WRN("Failed to send data over BLE connection");
 		}
 */
+
 		if (bt_nus_send(NULL, message, sizeof(message))) {
 			LOG_WRN("Failed to send data over BLE connection");
 		}

@@ -16,6 +16,7 @@ project(NONE)
 target_sources(app PRIVATE
   src/main.c
   src/nus_midi.c
+  src/button.c
 )
 
 # Include UART ASYNC API adapter

@@ -26,21 +26,21 @@ static void nus_ccc_cfg_changed(const struct bt_gatt_attr *attr,
 	}
 }
 
-static ssize_t on_receive(struct bt_conn *conn,
-			  const struct bt_gatt_attr *attr,
-			  const void *buf,
-			  uint16_t len,
-			  uint16_t offset,
-			  uint8_t flags)
-{
-	LOG_DBG("Received data, handle %d, conn %p",
-		attr->handle, (void *)conn);
+// static ssize_t on_receive(struct bt_conn *conn,
+// 			  const struct bt_gatt_attr *attr,
+// 			  const void *buf,
+// 			  uint16_t len,
+// 			  uint16_t offset,
+// 			  uint8_t flags)
+// {
+// 	LOG_DBG("Received data, handle %d, conn %p",
+// 		attr->handle, (void *)conn);
 
-	if (nus_cb.received) {
-		nus_cb.received(conn, buf, len);
-}
-	return len;
-}
+// 	if (nus_cb.received) {
+// 		nus_cb.received(conn, buf, len);
+// }
+// 	return len;
+// }
 
 static void on_sent(struct bt_conn *conn, void *user_data)
 {
