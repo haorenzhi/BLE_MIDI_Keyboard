@@ -25,7 +25,7 @@
 #include "nus_midi.h"
 #include "button.h"
 
-#include <dk_buttons_and_leds.h>
+// #include <dk_buttons_and_leds.h>
 
 #include <settings/settings.h>
 
@@ -43,13 +43,13 @@ LOG_MODULE_REGISTER(LOG_MODULE_NAME);
 #define DEVICE_NAME CONFIG_BT_DEVICE_NAME
 #define DEVICE_NAME_LEN	(sizeof(DEVICE_NAME) - 1)
 
-#define RUN_STATUS_LED DK_LED1
+// #define RUN_STATUS_LED DK_LED1
 #define RUN_LED_BLINK_INTERVAL 1000
 
-#define CON_STATUS_LED DK_LED2
+// #define CON_STATUS_LED DK_LED2
 
-#define KEY_PASSKEY_ACCEPT DK_BTN1_MSK
-#define KEY_PASSKEY_REJECT DK_BTN2_MSK
+// #define KEY_PASSKEY_ACCEPT DK_BTN1_MSK
+// #define KEY_PASSKEY_REJECT DK_BTN2_MSK
 
 #define UART_BUF_SIZE CONFIG_BT_NUS_UART_BUFFER_SIZE
 #define UART_WAIT_FOR_BUF_DELAY K_MSEC(50)
@@ -335,7 +335,7 @@ static void connected(struct bt_conn *conn, uint8_t err)
 
 	current_conn = bt_conn_ref(conn);
 
-	dk_set_led_on(CON_STATUS_LED);
+	// dk_set_led_on(CON_STATUS_LED);
 }
 
 static void disconnected(struct bt_conn *conn, uint8_t reason)
@@ -354,7 +354,7 @@ static void disconnected(struct bt_conn *conn, uint8_t reason)
 	if (current_conn) {
 		bt_conn_unref(current_conn);
 		current_conn = NULL;
-		dk_set_led_off(CON_STATUS_LED);
+		// dk_set_led_off(CON_STATUS_LED);
 	}
 }
 
@@ -514,7 +514,7 @@ static struct bt_nus_cb nus_cb = {
 
 void error(void)
 {
-	dk_set_leds_state(DK_ALL_LEDS_MSK, DK_NO_LEDS_MSK);
+	// dk_set_leds_state(DK_ALL_LEDS_MSK, DK_NO_LEDS_MSK);
 
 	while (true) {
 		/* Spin for ever */
@@ -522,61 +522,61 @@ void error(void)
 	}
 }
 
-#ifdef CONFIG_BT_NUS_SECURITY_ENABLED
-static void num_comp_reply(bool accept)
-{
-	if (accept) {
-		bt_conn_auth_passkey_confirm(auth_conn);
-		LOG_INF("Numeric Match, conn %p", (void *)auth_conn);
-	} else {
-		bt_conn_auth_cancel(auth_conn);
-		LOG_INF("Numeric Reject, conn %p", (void *)auth_conn);
-	}
+// #ifdef CONFIG_BT_NUS_SECURITY_ENABLED
+// static void num_comp_reply(bool accept)
+// {
+// 	if (accept) {
+// 		bt_conn_auth_passkey_confirm(auth_conn);
+// 		LOG_INF("Numeric Match, conn %p", (void *)auth_conn);
+// 	} else {
+// 		bt_conn_auth_cancel(auth_conn);
+// 		LOG_INF("Numeric Reject, conn %p", (void *)auth_conn);
+// 	}
 
-	bt_conn_unref(auth_conn);
-	auth_conn = NULL;
-}
+// 	bt_conn_unref(auth_conn);
+// 	auth_conn = NULL;
+// }
 
-void button_changed(uint32_t button_state, uint32_t has_changed)
-{
-	uint32_t buttons = button_state & has_changed;
+// void button_changed(uint32_t button_state, uint32_t has_changed)
+// {
+// 	uint32_t buttons = button_state & has_changed;
 
-	if (auth_conn) {
-		if (buttons & KEY_PASSKEY_ACCEPT) {
-			num_comp_reply(true);
-		}
+// 	if (auth_conn) {
+// 		if (buttons & KEY_PASSKEY_ACCEPT) {
+// 			num_comp_reply(true);
+// 		}
 
-		if (buttons & KEY_PASSKEY_REJECT) {
-			num_comp_reply(false);
-		}
-	}
-}
-#endif /* CONFIG_BT_NUS_SECURITY_ENABLED */
+// 		if (buttons & KEY_PASSKEY_REJECT) {
+// 			num_comp_reply(false);
+// 		}
+// 	}
+// }
+// #endif /* CONFIG_BT_NUS_SECURITY_ENABLED */
 
-static void configure_gpio(void)
-{
-	int err;
+// static void configure_gpio(void)
+// {
+// 	int err;
 
-#ifdef CONFIG_BT_NUS_SECURITY_ENABLED
-	err = dk_buttons_init(button_changed);
-	if (err) {
-		LOG_ERR("Cannot init buttons (err: %d)", err);
-	}
-#endif /* CONFIG_BT_NUS_SECURITY_ENABLED */
+// #ifdef CONFIG_BT_NUS_SECURITY_ENABLED
+// 	err = dk_buttons_init(button_changed);
+// 	if (err) {
+// 		LOG_ERR("Cannot init buttons (err: %d)", err);
+// 	}
+// #endif /* CONFIG_BT_NUS_SECURITY_ENABLED */
 
-	err = dk_leds_init();
-	if (err) {
-		LOG_ERR("Cannot init LEDs (err: %d)", err);
-	}
-}
+// 	// err = dk_leds_init();
+// 	// if (err) {
+// 	// 	LOG_ERR("Cannot init LEDs (err: %d)", err);
+// 	// }
+// }
 
 
 void main(void)
 {
-	int blink_status = 0;
+	// int blink_status = 0;
 	int err = 0;
 
-	configure_gpio();
+	// configure_gpio();
 	button_check();
 	err = uart_init();
 	if (err) {
@@ -614,8 +614,8 @@ void main(void)
 	}
 
 	for (;;) {
-		dk_set_led(RUN_STATUS_LED, (++blink_status) % 2);
-		k_sleep(K_MSEC(RUN_LED_BLINK_INTERVAL));
+		// dk_set_led(RUN_STATUS_LED, (++blink_status) % 2);
+		// k_sleep(K_MSEC(RUN_LED_BLINK_INTERVAL));
 		button_loop();
 
     }

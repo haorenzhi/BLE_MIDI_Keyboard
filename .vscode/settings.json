@@ -4,5 +4,8 @@
   "nrf-connect.applications": [
     "f:\\hello_world",
     "${workspaceFolder}"
-  ]
+  ],
+  "files.associations": {
+    "dk_buttons_and_leds.h": "c"
+  }
 }
