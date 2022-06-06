@@ -570,7 +570,7 @@ static void configure_gpio(void)
 	}
 }
 
-
+static unsigned char[] message;
 void main(void)
 {
 	int blink_status = 0;
@@ -613,11 +613,11 @@ void main(void)
 		return;
 	}
 
+	button_check();
 	for (;;) {
 		dk_set_led(RUN_STATUS_LED, (++blink_status) % 2);
 		k_sleep(K_MSEC(RUN_LED_BLINK_INTERVAL));
-		// button_loop();
-
+		message = button_loop();
     }
 }
 
@@ -631,8 +631,8 @@ void ble_write_thread(void)
 	const uint8_t *p = &buffer;
 	uint16_t len = sizeof(buffer)/sizeof(uint8_t);
 	*/
-	unsigned char message[5] = {0x80,0x80,0x90,0x3C,0x7F};
-	unsigned char messages[11] = {0x80,0x80,0x90,0x3C,0x7F,0x80,0x90,0x40,0x7F,0x44,0x7F};
+	// unsigned char message[5] = {0x80,0x80,0x90,0x3C,0x7F};
+	// unsigned char messages[11] = {0x80,0x80,0x90,0x3C,0x7F,0x80,0x90,0x40,0x7F,0x44,0x7F};
 	
 	for (;;) {
 		/* Wait indefinitely for data to be sent over bluetooth 
@@ -643,13 +643,13 @@ void ble_write_thread(void)
 		}
 */
 
-		if (bt_nus_send(NULL, message, sizeof(message))) {
-			LOG_WRN("Failed to send data over BLE connection");
-		}
-		printk("midi message: C\n");
-		k_sleep(K_MSEC(1000));
+		// if (bt_nus_send(NULL, message, sizeof(message))) {
+		// 	LOG_WRN("Failed to send data over BLE connection");
+		// }
+		// printk("midi message: C\n");
+		// k_sleep(K_MSEC(1000));
 
-		if (bt_nus_send(NULL, messages, sizeof(messages))) {
+		if (bt_nus_send(NULL, message, sizeof(message))) {
 			LOG_WRN("Failed to send data over BLE connection");
 		}
 		printk("midi messages: C Chord\n");
