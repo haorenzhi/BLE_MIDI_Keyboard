@@ -1,8 +1,8 @@
-# Install script for directory: C:/Users/36279/ncs/v1.9.1/modules/lib/open-amp
+# Install script for directory: /opt/nordic/ncs/v1.9.1/modules/lib/open-amp
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "C:/Program Files (x86)/Zephyr-Kernel")
+  set(CMAKE_INSTALL_PREFIX "/opt/nordic/ncs/v1.9.1/toolchain")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -34,6 +34,6 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "C:/Users/36279/ncs/v1.9.1/toolchain/opt/bin/arm-none-eabi-objdump.exe")
+  set(CMAKE_OBJDUMP "/opt/nordic/ncs/v1.9.1/toolchain/bin/arm-none-eabi-objdump")
 endif()
 

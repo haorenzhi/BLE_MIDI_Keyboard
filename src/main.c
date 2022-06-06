@@ -577,7 +577,7 @@ void main(void)
 	int err = 0;
 
 	configure_gpio();
-
+	button_check();
 	err = uart_init();
 	if (err) {
 		error();
@@ -616,7 +616,7 @@ void main(void)
 	for (;;) {
 		dk_set_led(RUN_STATUS_LED, (++blink_status) % 2);
 		k_sleep(K_MSEC(RUN_LED_BLINK_INTERVAL));
-		// button_loop();
+		button_loop();
 
     }
 }
@@ -646,13 +646,13 @@ void ble_write_thread(void)
 		if (bt_nus_send(NULL, message, sizeof(message))) {
 			LOG_WRN("Failed to send data over BLE connection");
 		}
-		printk("midi message: C\n");
+		// printk("midi message: C\n");
 		k_sleep(K_MSEC(1000));
 
 		if (bt_nus_send(NULL, messages, sizeof(messages))) {
 			LOG_WRN("Failed to send data over BLE connection");
 		}
-		printk("midi messages: C Chord\n");
+		// printk("midi messages: C Chord\n");
 		k_sleep(K_MSEC(3000));
 		// k_free(buf);
 	}

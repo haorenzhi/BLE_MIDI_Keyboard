@@ -23,11 +23,14 @@
 		led2 = &led2;
 		led3 = &led3;
 		pwm-led0 = &pwm_led0;
-		sw0 = &button0;
-		sw1 = &button1;
+		sw0 = &button1;
+		sw1 = &button0;
 		sw2 = &button2;
 		sw3 = &button3;
 		bootloader-led0 = &led0;
+		sw4 = &button4;
+		sw5 = &button5;
+		sw6 = &button6;
 	};
 	soc {
 		#address-cells = < 0x1 >;
@@ -527,7 +530,7 @@
 	leds {
 		compatible = "gpio-leds";
 		led0: led_0 {
-			gpios = < &gpio0 0xd 0x1 >;
+			gpios = < &gpio0 0x10 0x1 >;
 			label = "Green LED 0";
 		};
 		led1: led_1 {
@@ -560,12 +563,24 @@
 			label = "Push button switch 1";
 		};
 		button2: button_2 {
-			gpios = < &gpio0 0x18 0x11 >;
+			gpios = < &gpio0 0xd 0x11 >;
 			label = "Push button switch 2";
 		};
 		button3: button_3 {
-			gpios = < &gpio0 0x19 0x11 >;
+			gpios = < &gpio0 0xe 0x11 >;
 			label = "Push button switch 3";
+		};
+		button4: button_4 {
+			gpios = < &gpio0 0xf 0x11 >;
+			label = "Push button switch 4";
+		};
+		button5: button_5 {
+			gpios = < &gpio0 0x18 0x11 >;
+			label = "Push button switch 5";
+		};
+		button6: button_6 {
+			gpios = < &gpio0 0x19 0x11 >;
+			label = "Push button switch 6";
 		};
 	};
 	arduino_header: connector {
