@@ -44,7 +44,7 @@ LOG_MODULE_REGISTER(LOG_MODULE_NAME);
 #define DEVICE_NAME_LEN	(sizeof(DEVICE_NAME) - 1)
 
 // #define RUN_STATUS_LED DK_LED1
-#define RUN_LED_BLINK_INTERVAL 1000
+#define RUN_LED_BLINK_INTERVAL 700
 
 // #define CON_STATUS_LED DK_LED2
 
@@ -625,6 +625,9 @@ void ble_write_thread(void)
 		if (bt_nus_send(NULL, messages, sizeof(messages))) {
 			LOG_WRN("Failed to send data over BLE connection");
 		}
+
+		messages[3] = 0x00;
+		messages[4] = 0x00;
         // for(int i = 0; i < 5; i++) {
         //     printk("message[%d] = 0x%02X\n", i, (unsigned int)(messages[i] & 0XFF));
         // }

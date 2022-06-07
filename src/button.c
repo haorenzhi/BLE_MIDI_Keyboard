@@ -15,32 +15,32 @@
 #include "button.h"
 
 // define callback handler named button_pressed
-unsigned char messages[5] = {0x80, 0x80, 0x90, 0x3C, 0x7F};
+unsigned char messages[5] = {0x80, 0x80, 0x90, 0x00, 0x00};
 unsigned char chord;
 
 void button_pressed(const struct device *dev, struct gpio_callback *cb, uint32_t pins) {
     printk("Button pressed at pin %" PRIu32 "\n", pins);
 
     switch(pins) {
-        case 2048:
+        case 33554432:
             chord = 0x3C;
             break;
-        case 4096:
+        case 16777216:
             chord = 0x3E;
             break;
-        case 8192:
+        case 32768:
             chord = 0x40;
             break;
-        case 16387:
+        case 16384:
             chord = 0x41;
             break;
-        case 32768:
+        case 8192:
             chord = 0x43;
             break;
-        case 16777216:
+        case 4096:
             chord = 0x45;
             break;
-        case 33554432:
+        case 2048:
             chord = 0x47;
             break;
         default:
@@ -49,6 +49,7 @@ void button_pressed(const struct device *dev, struct gpio_callback *cb, uint32_t
     }
 
     messages[3] = chord;
+    messages[4] = 0x7F;
 
     for(int i = 0; i < 7; i++) {
         gpio_pin_set_dt(&buttons[i], 0);
