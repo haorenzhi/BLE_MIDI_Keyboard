@@ -38,14 +38,16 @@ struct gpio_dt_spec {
 	gpio_dt_flags_t dt_flags;
 };
 */
+extern unsigned char messages[5];
+
 static const struct gpio_dt_spec buttons[7] = {
     GPIO_DT_SPEC_GET_OR(SW0_NODE, gpios, {0}),
-    GPIO_DT_SPEC_GET_OR(SW1_NODE, gpios, {1}),
-    GPIO_DT_SPEC_GET_OR(SW2_NODE, gpios, {2}),
-    GPIO_DT_SPEC_GET_OR(SW3_NODE, gpios, {3}),
-    GPIO_DT_SPEC_GET_OR(SW4_NODE, gpios, {4}),
-    GPIO_DT_SPEC_GET_OR(SW5_NODE, gpios, {5}),
-    GPIO_DT_SPEC_GET_OR(SW6_NODE, gpios, {6}),
+    GPIO_DT_SPEC_GET_OR(SW1_NODE, gpios, {0}),
+    GPIO_DT_SPEC_GET_OR(SW2_NODE, gpios, {0}),
+    GPIO_DT_SPEC_GET_OR(SW3_NODE, gpios, {0}),
+    GPIO_DT_SPEC_GET_OR(SW4_NODE, gpios, {0}),
+    GPIO_DT_SPEC_GET_OR(SW5_NODE, gpios, {0}),
+    GPIO_DT_SPEC_GET_OR(SW6_NODE, gpios, {0}),
 };
 
 /*

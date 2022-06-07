@@ -570,7 +570,7 @@ void error(void)
 // 	// }
 // }
 
-
+// static unsigned char message[];
 void main(void)
 {
 	// int blink_status = 0;
@@ -612,13 +612,6 @@ void main(void)
 		LOG_ERR("Advertising failed to start (err %d)", err);
 		return;
 	}
-
-	for (;;) {
-		// dk_set_led(RUN_STATUS_LED, (++blink_status) % 2);
-		// k_sleep(K_MSEC(RUN_LED_BLINK_INTERVAL));
-		button_loop();
-
-    }
 }
 
 void ble_write_thread(void)
@@ -626,35 +619,16 @@ void ble_write_thread(void)
 	/* Don't go any further until BLE is initialized */
 	k_sem_take(&ble_init_ok, K_FOREVER);
 	
-	/*
-	uint8_t buffer = 67;
-	const uint8_t *p = &buffer;
-	uint16_t len = sizeof(buffer)/sizeof(uint8_t);
-	*/
-	unsigned char message[5] = {0x80,0x80,0x90,0x3C,0x7F};
-	unsigned char messages[11] = {0x80,0x80,0x90,0x3C,0x7F,0x80,0x90,0x40,0x7F,0x44,0x7F};
-	
 	for (;;) {
-		/* Wait indefinitely for data to be sent over bluetooth 
-		struct uart_data_t *buf = k_fifo_get(&fifo_uart_rx_data,
-						     K_FOREVER);
-		if (bt_nus_send(NULL, buf->data, buf->len)) {
-			LOG_WRN("Failed to send data over BLE connection");
-		}
-*/
-
-		if (bt_nus_send(NULL, message, sizeof(message))) {
-			LOG_WRN("Failed to send data over BLE connection");
-		}
-		// printk("midi message: C\n");
-		k_sleep(K_MSEC(1000));
-
+		k_sleep(K_MSEC(RUN_LED_BLINK_INTERVAL));
+    
 		if (bt_nus_send(NULL, messages, sizeof(messages))) {
 			LOG_WRN("Failed to send data over BLE connection");
 		}
-		// printk("midi messages: C Chord\n");
-		k_sleep(K_MSEC(3000));
-		// k_free(buf);
+        // for(int i = 0; i < 5; i++) {
+        //     printk("message[%d] = 0x%02X\n", i, (unsigned int)(messages[i] & 0XFF));
+        // }
+		// printk("midi message send\n");
 	}
 }
 

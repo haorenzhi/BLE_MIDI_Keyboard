@@ -1144,7 +1144,7 @@
 
 /* Existence and alternate IDs: */
 #define DT_N_S_buttons_S_button_0_EXISTS 1
-#define DT_N_ALIAS_sw1         DT_N_S_buttons_S_button_0
+#define DT_N_ALIAS_sw0         DT_N_S_buttons_S_button_0
 #define DT_N_NODELABEL_button0 DT_N_S_buttons_S_button_0
 
 /* Macros for properties that are special in the specification: */
@@ -1248,7 +1248,7 @@
 
 /* Existence and alternate IDs: */
 #define DT_N_S_buttons_S_button_1_EXISTS 1
-#define DT_N_ALIAS_sw0         DT_N_S_buttons_S_button_1
+#define DT_N_ALIAS_sw1         DT_N_S_buttons_S_button_1
 #define DT_N_NODELABEL_button1 DT_N_S_buttons_S_button_1
 
 /* Macros for properties that are special in the specification: */

@@ -898,12 +898,9 @@ zephyr_udc0: &usbd {
  };
  aliases {
   led0 = &led0;
-
-
-
   pwm-led0 = &pwm_led0;
-  sw0 = &button1;
-  sw1 = &button0;
+  sw0 = &button0;
+  sw1 = &button1;
   sw2 = &button2;
   sw3 = &button3;
   sw4 = &button4;
@@ -1412,7 +1409,7 @@ zephyr_udc0: &usbd {
    gpios = < &gpio0 0x10 0x1 >;
    label = "Green LED 0";
   };
-# 548 "/Users/pp/Desktop/NU/21W/sensingAndNavigationMLRob/peripheral_uart/zephyr.overlay"
+# 545 "/Users/pp/Desktop/NU/21W/sensingAndNavigationMLRob/peripheral_uart/zephyr.overlay"
  };
  pwmleds {
   compatible = "pwm-leds";

@@ -6,6 +6,7 @@
     "${workspaceFolder}"
   ],
   "files.associations": {
-    "dk_buttons_and_leds.h": "c"
+    "dk_buttons_and_leds.h": "c",
+    "gpio.h": "c"
   }
 }
